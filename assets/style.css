@@ -1,0 +1,350 @@
+.imp-tailwind-scope .flex { display:flex }
+
+.text-gray-600 {
+    max-width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.3;
+}
+
+
+/* Estilos para la marquesina en el frontend */
+.imp-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.imp-marquee-content {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.imp-marquee-item {
+    display: inline-block;
+    margin-right: 20px;
+    position: relative;
+    vertical-align: top;
+    min-width: 200px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.imp-marquee-item img {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    object-fit: cover;
+}
+
+.imp-marquee-item:hover img {
+    transform: scale(1.05);
+}
+
+.imp-marquee-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 20px 15px 15px 15px;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+}
+
+.imp-marquee-text h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px; /* Valor por defecto, se sobrescribe dinámicamente */
+    font-weight: 600; /* Valor por defecto, se sobrescribe dinámicamente */
+    color: #ffffff; /* Valor por defecto, se sobrescribe dinámicamente */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    line-height: 1.2;
+}
+
+.imp-marquee-text p {
+    margin: 0;
+    font-size: 14px; /* Valor por defecto, se sobrescribe dinámicamente */
+    font-weight: 400; /* Valor por defecto, se sobrescribe dinámicamente */
+    color: #e6e6e6; /* Valor por defecto, se sobrescribe dinámicamente */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+/* Estilos para enlaces de contacto */
+.imp-contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.imp-contact-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px; /* Valor por defecto, se sobrescribe dinámicamente */
+    height: 32px; /* Valor por defecto, se sobrescribe dinámicamente */
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.imp-contact-link:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.imp-contact-link span {
+    font-size: 16px; /* Valor por defecto, se sobrescribe dinámicamente */
+    line-height: 1;
+}
+
+/* Colores específicos para cada red social */
+.imp-phone:hover { background-color: #4CAF50; }
+.imp-whatsapp:hover { background-color: #25D366; }
+.imp-instagram:hover { background-color: #E4405F; }
+.imp-facebook:hover { background-color: #1877F2; }
+.imp-tiktok:hover { background-color: #000000; }
+.imp-telegram:hover { background-color: #0088CC; }
+.imp-linkedin:hover { background-color: #0A66C2; }
+
+.imp-phone:hover span,
+.imp-whatsapp:hover span,
+.imp-instagram:hover span,
+.imp-facebook:hover span,
+.imp-tiktok:hover span,
+.imp-telegram:hover span,
+.imp-linkedin:hover span {
+    color: white;
+}
+
+/* Animaciones */
+@keyframes marqueeLeft {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes marqueeRight {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Pausa en hover */
+.imp-marquee-container:hover .imp-marquee-content {
+    animation-play-state: paused;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .imp-marquee-item {
+        min-width: 150px;
+        margin-right: 15px;
+    }
+    
+    .imp-marquee-text h3 {
+        font-size: 14px;
+    }
+    
+    .imp-marquee-text p {
+        font-size: 12px;
+    }
+    
+    .imp-contact-link {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .imp-contact-link span {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .imp-marquee-item {
+        min-width: 120px;
+        margin-right: 10px;
+    }
+    
+    .imp-marquee-text {
+        padding: 15px 10px 10px 10px;
+    }
+    
+    .imp-marquee-text h3 {
+        font-size: 13px;
+    }
+    
+    .imp-marquee-text p {
+        font-size: 11px;
+    }
+    
+    .imp-contact-links {
+        gap: 6px;
+    }
+    
+    .imp-contact-link {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .imp-contact-link span {
+        font-size: 13px;
+    }
+}
+
+.imp-marquee-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.65);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Flecha perfectamente centrada */
+.imp-marquee-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #fff;
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* Hover */
+.imp-marquee-btn:hover {
+    background: rgba(0, 0, 0, 0.85);
+    transform: translateY(-50%) scale(1.12);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+.imp-marquee-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Posición */
+.imp-marquee-btn.imp-prev {
+    left: 14px;
+}
+
+.imp-marquee-btn.imp-next {
+    right: 14px;
+}
+
+
+/* Evita que el plugin afecte el resto de la página */
+.imp-marquee-container {
+    isolation: isolate;
+}
+
+
+/*Para el modal de envio de correos*/
+.imp-mail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+}
+
+.imp-mail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.imp-mail-overlay.active,
+.imp-mail-modal.active {
+    display: flex;
+}
+
+.imp-mail-content {
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    padding: 32px;
+    position: relative;
+}
+
+.imp-mail-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.imp-mail-group {
+    margin-bottom: 16px;
+}
+
+.imp-mail-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.imp-mail-group input,
+.imp-mail-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.imp-mail-recipient {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.imp-mail-send {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}

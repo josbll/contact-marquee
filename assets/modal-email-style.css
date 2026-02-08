@@ -1,0 +1,100 @@
+.imp-mail-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+}
+
+.imp-mail-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.imp-mail-modal.active,
+.imp-mail-overlay.active {
+    display: flex;
+}
+
+.imp-mail-content {
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.imp-mail-content h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.imp-mail-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #666;
+}
+
+.imp-mail-group {
+    margin-bottom: 16px;
+}
+
+.imp-mail-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.imp-mail-group input,
+.imp-mail-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.imp-mail-group input:focus,
+.imp-mail-group textarea:focus {
+    border-color: #2563eb;
+}
+
+.imp-mail-recipient {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.imp-mail-send {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.imp-mail-send:hover {
+    background: #1e40af;
+}
+.imp-mail-success {
+    display: none;
+    text-align: center;
+    color: #16a34a;
+    font-weight: 600;
+    margin-top: 20px;
+}
