@@ -89,7 +89,10 @@ $existing_marquees = $wpdb->get_col("SELECT DISTINCT marquee_name FROM $table_na
                 <label>Subtítulo:</label>
                 <input type="text" class="image-subtitle" value="{{subtitle}}" placeholder="Subtítulo de la imagen">
             </div>
-            
+            <div class="imp-input-group">
+                <label>Descripci&oacute;n o reseña:</label>
+                <textarea class="image-story" placeholder="Descripción o reseña de la imagen" >{{story}}</textarea>
+            </div>
             <div class="imp-contact-section">
                 <h4>Información de Contacto</h4>
                 <div class="imp-contact-grid">

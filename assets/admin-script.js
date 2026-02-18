@@ -115,6 +115,7 @@ jQuery(document).ready(function($) {
                 url: $item.find('.image-url').val(),
                 title: $item.find('.image-title').val(),
                 subtitle: $item.find('.image-subtitle').val(),
+                story: $item.find('.image-story').val(),
                 email: $item.find('.image-email').val(),
                 phone: $item.find('.image-phone').val(),
                 whatsapp: $item.find('.image-whatsapp').val(),
@@ -185,7 +186,8 @@ jQuery(document).ready(function($) {
                             facebook: image.facebook,
                             tiktok: image.tiktok,
                             telegram: image.telegram,
-                            linkedin: image.linkedin
+                            linkedin: image.linkedin,
+                            story: image.story
                         };
                         addImageItem(image.image_url, image.title, image.subtitle, index + 1, contactData);
                     });
@@ -220,8 +222,9 @@ jQuery(document).ready(function($) {
             .replace(/{{facebook}}/g, contactData.facebook || '')
             .replace(/{{tiktok}}/g, contactData.tiktok || '')
             .replace(/{{telegram}}/g, contactData.telegram || '')
-            .replace(/{{linkedin}}/g, contactData.linkedin || '');
-        
+            .replace(/{{linkedin}}/g, contactData.linkedin || '')
+            .replace(/{{story}}/g, contactData.story || '');
+
         $('#images-container').append(html);
         initSortable();
     }

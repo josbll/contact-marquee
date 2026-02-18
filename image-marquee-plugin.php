@@ -3,7 +3,7 @@
  * Plugin Name: Marquee Contact List Plugin
  * Plugin URI: https://example.com
  * Description: Plugin para crear marquesinas de imágenes con títulos y subtítulos, redes sociales personalizable desde el Customizer
- * Version: 2.4
+ * Version: 2.6
  * Author: Josué Becerra Llamozas - Director de Tecnología y Comunicaciones de Fundasperven
  * License: GPL v2 or later
  * 
@@ -35,6 +35,11 @@
  * - Se agrega la funcionalidad para configurar los campos que se desean mostrar por marquesina.
  * Version 2.4
  * - Se mejora el error de altura y anchura de imagen.
+ * Version 2.5
+ * - Se elimina las animaciones CSS y se implementa la animación con JavaScript para un desplazamiento más fluido y preciso, considerando los anchos individuales de las imágenes. Además, se añaden botones de navegación para acelerar el desplazamiento en ambas direcciones, mejorando la experiencia del usuario. Se corrige un bug que causaba un salto al cambiar la orientación o redimensionar la ventana, asegurando que el marquee se recalcule correctamente sin perder su posición actual. También se optimiza el código para mejorar el rendimiento y la estabilidad general del plugin.
+ * - Se crea el boton y la ventana de reseña historica.
+ * Version 2.6
+ * - Se visualiza la ventana modal de reseña historica con saltos de linea.
  */
 
 // Prevenir acceso directo
@@ -75,6 +80,7 @@ class ContactMarqueePlugin {
         add_action('wp_ajax_nopriv_imp_send_email', array($this, 'imp_send_email'));
         add_action('customize_register', array($this, 'customize_register'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_tailwind_scoped'));
+
 
         // Registrar shortcode
         add_shortcode('image_marquee_contact', array($this, 'marquee_shortcode'));
@@ -135,6 +141,7 @@ class ContactMarqueePlugin {
             subtitle varchar(255),
             phone varchar(20),
             email varchar(50),
+            story longtext,
             instagram varchar(255),
             facebook varchar(255),
             tiktok varchar(255),
@@ -146,7 +153,6 @@ class ContactMarqueePlugin {
             PRIMARY KEY (id)
         ) $charset_collate;";
 
-        
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
 
@@ -165,12 +171,15 @@ class ContactMarqueePlugin {
             show_tiktok tinyint(1) DEFAULT 1,
             show_telegram tinyint(1) DEFAULT 1,
             show_linkedin tinyint(1) DEFAULT 1,
+            show_story tinyint(1) DEFAULT 1,
             updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             UNIQUE KEY marquee_name (marquee_name)
         ) $charset_collate;";
 
          dbDelta($sql);
+         
+
         // Tabla para almacenar configuración de correo (una sola fila esperada)
         $email_table = $wpdb->prefix . 'Email_setting';
         $sql2 = "CREATE TABLE $email_table (
@@ -195,6 +204,30 @@ class ContactMarqueePlugin {
 
         dbDelta($sql2);
 
+       $table_name = $wpdb->prefix . 'image_marquees_contacts';
+
+       $column = $wpdb->get_results(
+            "SHOW COLUMNS FROM $table_name LIKE 'story'"
+        );
+
+        if (empty($column)) {
+            $wpdb->query(
+                "ALTER TABLE $table_name ADD COLUMN story longtext"
+            );
+        }
+
+        $table_name = $wpdb->prefix . 'image_marquees_field_settings';
+
+        $column = $wpdb->get_results(
+            "SHOW COLUMNS FROM $table_name LIKE 'show_story'"
+        );
+
+        if (empty($column)) {
+            $wpdb->query(
+                "ALTER TABLE $table_name ADD COLUMN show_story tinyint(1) DEFAULT 1"
+            );
+        }
+        
         // Insertar fila por defecto si no existe
         $count = $wpdb->get_var("SELECT COUNT(*) FROM $email_table");
         if (intval($count) === 0) {
@@ -371,6 +404,23 @@ public function marquee_shortcode($atts) {
                         style="max-height:' . esc_attr($atts['height']) . 'px;"
                     >
                 </div>';
+            $show_story = !empty($image->story) && !empty($fields['show_story']);
+            
+            if($show_story){
+                  $output .= '
+                    <div class="mt-6 text-center">
+                        <button 
+                            type="button"
+                            id="storyId"
+                            class="imp-open-story text-indigo-600 hover:text-indigo-800 font-medium"
+                            data-title="' . esc_attr($image->title) . '"
+                            data-image="' . esc_url($image->image_url) . '"
+                            data-story="' . esc_attr($image->story) . '"
+                        >
+                            Ver reseña
+                        </button>
+                    </div>';
+            }
 
             // Nombre y rol (mostrar según configuración)
             $show_title = !empty($fields) && !empty($fields['show_title']);
@@ -510,6 +560,27 @@ public function marquee_shortcode($atts) {
         </div>
         ';
 
+        $output .= '
+                <!-- Modal Reseña -->
+                <div id="imp-story-overlay" class="imp-story-overlay hidden">
+                    <div class="imp-story-modal">
+                        <button class="imp-story-close" id="imp-story-close">✕</button>
+
+                        <div class="imp-story-body">
+                            <div class="imp-story-image">
+                                <img id="imp-story-img" src="" alt="">
+                            </div>
+
+                            <div class="imp-story-content">
+                                <h3 id="imp-story-title"></h3>
+                                <div id="imp-story-text" class="imp-story-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ';
+
+
         /* Reemplazar iconos Feather */
         $output .= '
         <script>
@@ -548,6 +619,7 @@ public function marquee_shortcode($atts) {
                 'title' => sanitize_text_field($image['title']),
                 'email' => sanitize_email($image['email']),
                 'subtitle' => sanitize_text_field($image['subtitle']),
+                'story' => sanitize_textarea_field($image['story']),
                 'phone' => sanitize_text_field($image['phone']),
                 'instagram' => esc_url_raw($image['instagram']),
                 'facebook' => esc_url_raw($image['facebook']),
@@ -847,6 +919,8 @@ public function marquee_shortcode($atts) {
                 );
             }
    }
+ 
+   
 
 
 }

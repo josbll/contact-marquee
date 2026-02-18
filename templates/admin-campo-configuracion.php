@@ -54,6 +54,10 @@ $field_settings = $wpdb->get_row(
                 <input type="checkbox" name="show_subtitle" checked>
                 Mostrar Subtítulo
             </label>
+            <label>
+                <input type="checkbox" name="show_story" checked>
+                Mostrar Descripción o Historia
+            </label>
         </fieldset>
 
         <h2>Información de Contacto</h2>
