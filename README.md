@@ -2,6 +2,7 @@
 
 **Versión 2.6 - Con Campo reseña historica y diversos parrafos**
 
+
 ## Descripción
 Plugin completo para crear y gestionar marquesinas de imágenes con títulos, subtítulos y información de contacto. Incluye campos para teléfono y redes sociales (Instagram, Facebook, TikTok, WhatsApp, Telegram, LinkedIn). Permite crear múltiples marquesinas, configurar su apariencia desde el Customizer de WordPress y mostrarlas en cualquier lugar usando shortcodes.
 
