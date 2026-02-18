@@ -3,7 +3,7 @@
  * Plugin Name: Marquee Contact List Plugin
  * Plugin URI: https://example.com
  * Description: Plugin para crear marquesinas de imágenes con títulos y subtítulos, redes sociales personalizable desde el Customizer
- * Version: 2.6
+ * Version: 2.7
  * Author: Josué Becerra Llamozas - Director de Tecnología y Comunicaciones de Fundasperven
  * License: GPL v2 or later
  * 
@@ -40,6 +40,9 @@
  * - Se crea el boton y la ventana de reseña historica.
  * Version 2.6
  * - Se visualiza la ventana modal de reseña historica con saltos de linea.
+ * Version 2.7
+ * - Se aumenta las dimensiones del area de texto de la reseña historica.
+ * - Las reseñas quedan justificadas.
  */
 
 // Prevenir acceso directo

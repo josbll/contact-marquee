@@ -1,6 +1,6 @@
 # Plugin de Marquesinas de Imágenes para WordPress
 
-**Versión 2.6 - Con Campo reseña historica y diversos parrafos**
+**Versión 2.7 - Con Campo reseña historica y diversos parrafos. campo de texto de reseña redimensionado**
 
 
 ## Descripción

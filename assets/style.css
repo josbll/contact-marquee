@@ -529,6 +529,7 @@ button:hover  {
     line-height: 1.75;
     color: #cbd5f5;
     white-space: pre-line;
+    text-align:justify;
 }
 
 /* Scroll elegante */
